@@ -25,10 +25,6 @@ type VertPos
     | Bottom
 
 
-type alias Row =
-    List Cell
-
-
 type HorizPos
     = Left
     | Center
@@ -47,6 +43,10 @@ type Value
 
 type alias Cell =
     { position : Position, value : Value }
+
+
+type alias Row =
+    List Cell
 
 
 type alias Board =
@@ -113,7 +113,7 @@ view model =
             , tbody [] (htmlFrom model.board)
             , tr []
                 [ td [ colspan 3, align "center" ]
-                    [ text <| stateStr model.gameState model.currentPlayer ]
+                    [ text <| stateStr model ]
                 ]
             ]
         ]
@@ -160,11 +160,11 @@ cellTxt cell =
     [ text <| valToStr cell.value ]
 
 
-stateStr : GameState -> Player -> String
-stateStr gameState currentPlayer =
+stateStr : Model -> String
+stateStr model =
     case gameState of
         Active ->
-            playerToStr currentPlayer ++ "'s turn."
+            playerToStr model.currentPlayer ++ "'s turn."
 
         Tie ->
             "It's a tie :("
@@ -235,7 +235,6 @@ css =
         border-top: .1em solid black;
         border-bottom: .1em solid black;
     }
-    .Highlight { background: green}
     """
 
 
