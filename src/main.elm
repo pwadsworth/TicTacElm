@@ -162,7 +162,7 @@ cellTxt cell =
 
 stateStr : Model -> String
 stateStr model =
-    case gameState of
+    case model.gameState of
         Active ->
             playerToStr model.currentPlayer ++ "'s turn."
 
